@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .header {
+            background-color: #5d5d8a;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .content {
+            background-color: #2a2a4a;
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        p {
+            margin: 0 0 20px 0;
+            color: #ffffff;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .event-details {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 16px;
+        }
+
+        .event-details strong {
+            color: #ffd700; /* Adjusted color for emphasis */
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h2 th:text="${subject} + ' Confirmation'"></h2>
+    </div>
+    <div class="content">
+        <p th:text="'Dear ' + ${name} + ','"></p>
+        <p th:text="${body}"></p>
+
+        <p class="signature">Best regards,<br>The UNTOLD Team</p>
+        <img src="https://play-lh.googleusercontent.com/ypVb0U7-YUPC3JqDyC9vEeeNNWxTxXVPeFZPLwMcVuUXrYFx2xJQxq3jBsyu8Dd1WQQ" alt="Untold Logo">
+        <div class="event-details">
+            <p>Event Details:</p>
+            <p><strong>Event Name:</strong> Untold Festival</p>
+            <p><strong>Location:</strong> Cluj-Napoca, Romania</p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

@@ -30,7 +30,6 @@ public class EmailService {
             helper.setFrom("avelicea2@gmail.com", "UNTOLD");
             javaMailSender.send(message);
         } catch (MessagingException e) {
-            // Handle exception gracefully
             handleMessagingException(e);
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);

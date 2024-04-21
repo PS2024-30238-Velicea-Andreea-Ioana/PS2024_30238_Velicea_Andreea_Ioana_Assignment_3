@@ -1,6 +1,5 @@
-package com.example.mailmicroservice;
+package com.example.mailmicroservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Setter

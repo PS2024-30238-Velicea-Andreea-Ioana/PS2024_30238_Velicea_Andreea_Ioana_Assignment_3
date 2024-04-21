@@ -1,5 +1,6 @@
-package com.example.mailmicroservice;
+package com.example.mailmicroservice.listeners;
 
+import com.example.mailmicroservice.services.EmailService;
 import com.example.untoldpsproject.dtos.Payload;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class QueueListener {
     @RabbitListener(queues = "${rabbitmq.queue}")
     public void listen(Payload payload) {
         try {
-            emailService.sendEmail(payload.getEmail(), "fromqueue", "message from queue");
+            emailService.sendEmail(payload.getEmail());
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }

@@ -1,9 +1,10 @@
-package com.example.mailmicroservice;
+package com.example.mailmicroservice.controllers;
 
-import com.example.untoldpsproject.dtos.Payload;
+import com.example.mailmicroservice.entities.MessageDto;
+import com.example.mailmicroservice.entities.NotificationRequestDto;
+import com.example.mailmicroservice.services.EmailService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

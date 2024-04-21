@@ -1,4 +1,4 @@
-package com.example.mailmicroservice;
+package com.example.mailmicroservice.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

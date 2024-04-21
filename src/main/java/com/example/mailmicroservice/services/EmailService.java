@@ -1,9 +1,8 @@
-package com.example.mailmicroservice;
+package com.example.mailmicroservice.services;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -20,14 +19,14 @@ public class EmailService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public void sendEmail(String to, String subject, String body) {
+    public void sendEmail(String to) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         try {
             helper = new MimeMessageHelper(message, true);
             helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(body, true);
+            helper.setSubject("subject");
+            helper.setText("body", true);
             helper.setFrom("avelicea2@gmail.com", "UNTOLD");
             javaMailSender.send(message);
         } catch (MessagingException e) {

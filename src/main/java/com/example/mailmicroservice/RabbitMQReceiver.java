@@ -24,27 +24,6 @@ public class RabbitMQReceiver {
         this.emailService = emailService;
     }
 
-//    @RabbitHandler
-//    public void receiveAndSendEmail(String message) {
-//        logger.info("Received message from RabbitMQ queue: " + message);
-//        try {
-//            // Assuming the message contains necessary details like to, subject, body
-//            String[] parts = message.split(",");
-//            if (parts.length == 3) {
-//                String to = parts[0];
-//                String subject = parts[1];
-//                String body = parts[2];
-//                emailService.sendEmail(to, subject, body);
-//                logger.info("Email sent successfully.");
-//            } else {
-//                logger.error("Invalid message format: " + message);
-//            }
-//        } catch (MessagingException e) {
-//            logger.error("Error sending email: " + e.getMessage());
-//        }
-//    }
-
-    @RabbitListener(queues = "${rabbitmq.queue}")
     @PostMapping(value = "/sendEmail")
     public ResponseEntity<MessageDto> receiveAndSendEmail(@RequestBody NotificationRequestDto notificationRequestDto, @RequestHeader HttpHeaders httpHeaders) {
         try {

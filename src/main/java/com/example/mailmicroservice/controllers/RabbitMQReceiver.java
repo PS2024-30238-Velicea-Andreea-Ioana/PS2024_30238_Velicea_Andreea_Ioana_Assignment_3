@@ -28,12 +28,10 @@ public class RabbitMQReceiver {
     @PostMapping(value = "/sendEmail")
     public ResponseEntity<MessageDto> receiveAndSendEmail(@RequestBody NotificationRequestDto notificationRequestDto, @RequestHeader HttpHeaders httpHeaders) {
         try {
-            // Log received data for debugging
             logger.info("Received NotificationRequestDto: {}", notificationRequestDto);
             logger.info("Received HttpHeaders: {}", httpHeaders);
 
             if (isValidToken(httpHeaders, notificationRequestDto)) {
-                // Extract email from NotificationRequestDto
                 String email = notificationRequestDto.getEmail();
 
                 if(notificationRequestDto.getAction().equals("register")) {
@@ -44,31 +42,24 @@ public class RabbitMQReceiver {
                             "We appreciate your business and look forward to serving you again.\n");
                     logger.info("Email sent successfully to " + email);
                 }
-                // Construct success message
                 MessageDto messageDto = new MessageDto();
                 messageDto.setStatus("Success");
                 messageDto.setMessage("Email sent successfully");
 
-                // Return success response
                 return ResponseEntity.ok(messageDto);
             } else {
                 logger.error("Unauthorized access. Invalid token.");
-                // Construct unauthorized access message
                 MessageDto messageDto = new MessageDto();
                 messageDto.setStatus("Error");
                 messageDto.setMessage("Unauthorized access. Invalid token.");
-
-                // Return unauthorized access response
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(messageDto);
             }
         } catch (Exception e) {
             logger.error("Error sending email: " + e.getMessage());
-            // Construct error message
             MessageDto messageDto = new MessageDto();
             messageDto.setStatus("Error");
             messageDto.setMessage("Error sending email");
 
-            // Return error response
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messageDto);
         }
     }

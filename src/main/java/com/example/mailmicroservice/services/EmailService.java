@@ -43,12 +43,11 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             String defaultFromAddress = "avelicea2@gmail.com";
-            helper.setFrom(defaultFromAddress, "UNTOLD"); // Set the From address
+            helper.setFrom(defaultFromAddress, "UNTOLD");
             String htmlContent = generateHtmlContent(to,subject,body);
             helper.setText(htmlContent, true);
             javaMailSender.send(message);
         } catch (MessagingException | UnsupportedEncodingException e) {
-            // Handle exception gracefully
             handleMessagingException((MessagingException) e);
         }
     }
@@ -61,31 +60,7 @@ public class EmailService {
         return templateEngine.process("SendedMail", context);
     }
 
-//    public void sendTestEmail() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        String to = "avelicea1@yahoo.com";
-//        String subject = "Test Email";
-//        String body = "This is a test email sent directly from the EmailService class.";
-//        sendHtmlEmail(to, subject, body);
-//    }
-
     private void handleMessagingException(MessagingException e) {
-
         e.printStackTrace();
     }
 }

@@ -65,16 +65,6 @@ public class RabbitMQConfig {
         connectionFactory.setPassword(password);
         return connectionFactory;
     }
-//    @Bean
-//    public AmqpTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-//        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-//        rabbitTemplate.setDefaultReceiveQueue(queueName);
-//        rabbitTemplate.setMessageConverter(jsonMessageConverter());
-//        rabbitTemplate.setReplyAddress(queue().getName());
-//        rabbitTemplate.setReplyTimeout(replyTimeout);
-//        rabbitTemplate.setUseDirectReplyToContainer(false);
-//        return rabbitTemplate;
-//    }
     @Bean
     public AmqpAdmin amqpAdmin() {
         return new RabbitAdmin(connectionFactory());

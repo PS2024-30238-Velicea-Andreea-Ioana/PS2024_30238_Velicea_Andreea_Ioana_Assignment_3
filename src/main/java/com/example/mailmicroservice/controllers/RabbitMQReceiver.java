@@ -12,6 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 @Component
 @RestController
@@ -41,6 +46,15 @@ public class RabbitMQReceiver {
                     emailService.sendHtmlEmailRegister(email,"Order", "Thank you for your order. Your order has been confirmed! \n" +
                             "We appreciate your business and look forward to serving you again.\n");
                     logger.info("Email sent successfully to " + email);
+                }else if (notificationRequestDto.getAction().equals("adminFile")){
+                    byte[] attachmentContent = readFile(notificationRequestDto.getFilePath());
+
+                    // Determine attachment type based on file extension
+                    String attachmentType = getAttachmentType(notificationRequestDto.getFilePath());
+
+                    // Send email with attachment
+                    emailService.sendHtmlEmailRegisterWithAttachment(email, "File Attachment", "Please find the attached file.", attachmentContent, "attachment." + attachmentType, attachmentType);
+                    logger.info("Email with attachment sent successfully to " + email);
                 }
                 MessageDto messageDto = new MessageDto();
                 messageDto.setStatus("Success");
@@ -64,6 +78,9 @@ public class RabbitMQReceiver {
         }
     }
 
+    private byte[] readFile(String filePath) throws IOException {
+        return Files.readAllBytes(Paths.get(filePath));
+    }
     private boolean isValidToken(HttpHeaders httpHeaders, NotificationRequestDto notificationRequestDto) {
         String autorizationHeader = httpHeaders.getFirst(HttpHeaders.AUTHORIZATION);
         if (notificationRequestDto == null) return false;
@@ -72,5 +89,12 @@ public class RabbitMQReceiver {
             return token.equals(notificationRequestDto.getId() + notificationRequestDto.getId());
         }
         return false;
+    }
+    private String getAttachmentType(String filePath) {
+        String[] parts = filePath.split("\\.");
+        if (parts.length > 0) {
+            return parts[parts.length - 1];
+        }
+        return "txt"; // Default to txt if file extension not found
     }
 }

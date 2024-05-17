@@ -16,7 +16,7 @@ public class QueueListener {
     @RabbitListener(queues = "${rabbitmq.queue}")
     public void listen(Payload payload) {
         try {
-            emailService.sendHtmlEmailRegister(payload.getEmail(),"Order", "Thank you for your order. Your order has been confirmed! \n" +
+            emailService.sendHtmlEmailRegister(payload.getEmail(),"Order", "Thank you for your order. Your order has been confirmed!\n" +
                     "We appreciate your business and look forward to serving you again. \n");
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

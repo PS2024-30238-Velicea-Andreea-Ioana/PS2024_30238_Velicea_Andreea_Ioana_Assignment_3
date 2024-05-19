@@ -54,8 +54,6 @@ public class EmailService {
             helper.setFrom(defaultFromAddress, "UNTOLD");
             String htmlContent = generateHtmlContent1(to, subject, body);
             helper.setText(htmlContent, true);
-
-            // Add attachment based on the type
             if ("pdf".equalsIgnoreCase(attachmentType)) {
                 helper.addAttachment(attachmentFileName, new ByteArrayResource(attachment), "application/pdf");
             } else if ("txt".equalsIgnoreCase(attachmentType)) {
@@ -63,7 +61,6 @@ public class EmailService {
             } else if ("csv".equalsIgnoreCase(attachmentType)) {
                 helper.addAttachment(attachmentFileName, new ByteArrayResource(attachment), "text/csv");
             } else {
-                // Handle unsupported attachment types
                 throw new IllegalArgumentException("Unsupported attachment type: " + attachmentType);
             }
 

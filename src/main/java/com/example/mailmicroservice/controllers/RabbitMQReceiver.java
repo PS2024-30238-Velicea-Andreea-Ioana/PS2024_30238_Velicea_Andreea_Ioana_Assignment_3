@@ -48,12 +48,8 @@ public class RabbitMQReceiver {
                     logger.info("Email sent successfully to " + email);
                 }else if (notificationRequestDto.getAction().equals("adminFile")){
                     byte[] attachmentContent = readFile(notificationRequestDto.getFilePath());
-
-                    // Determine attachment type based on file extension
                     String attachmentType = getAttachmentType(notificationRequestDto.getFilePath());
-
-                    // Send email with attachment
-                    emailService.sendHtmlEmailRegisterWithAttachment(email, "File Attachment", "Please find the attached file.", attachmentContent, "attachment." + attachmentType, attachmentType);
+                    emailService.sendHtmlEmailRegisterWithAttachment(email, "File Attachment", "Please find the attached file.", attachmentContent, "order." + attachmentType, attachmentType);
                     logger.info("Email with attachment sent successfully to " + email);
                 }
                 MessageDto messageDto = new MessageDto();
